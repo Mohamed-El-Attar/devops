@@ -18,7 +18,7 @@ pipeline
         // Docker Images
 
         MAVEN = "adoptopenjdk/maven-openjdk11:latest"
-        JDK = "openjdk:11-jre-slim"
+        OPEN-JDK = "openjdk:11-jre-slim"
     }
         
 
@@ -111,7 +111,7 @@ pipeline
         //     }
         // }
     }
-    
+
     post
     {
         // aborted 
