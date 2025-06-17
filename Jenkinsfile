@@ -10,10 +10,6 @@ pipeline
         IMAGE_NAME = "registry.local/${APP_NAME}:v${BUILD_ID_TAG}"
         CONTAINER_NAME = "${APP_NAME}_container_${BUILD_ID_TAG}"
         EXPOSED_PORT = "8080"
-
-        //GIT 
-
-        COMMIT_HASH = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
         
         // Docker Images
 
