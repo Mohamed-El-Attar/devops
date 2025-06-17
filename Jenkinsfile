@@ -56,7 +56,6 @@ pipeline
                 {
                     sh """
                         pwd && ls -la
-                        cd ${WORK_DIR}
                         echo 'Building project using Maven...'
                         mvn clean package -DskipTests
                     """
