@@ -1,0 +1,12 @@
+target/*
+!target/*.jar
+
+
+.git
+.gitignore
+README.md
+HELP.md
+Jenkinsfile
+.vscode/
+.idea/
+

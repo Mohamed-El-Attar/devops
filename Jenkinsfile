@@ -63,19 +63,19 @@ pipeline
             }
         }
 
-        // stage("Build Docker Image") 
-        // {
-        //     steps
-        //     {
-        //         dir("${WORK_DIR}")
-        //         {
-        //             sh """
-        //                 echo 'Building Docker image: ${IMAGE_NAME}'
-        //                 docker build -t ${IMAGE_NAME} .
-        //             """
-        //         }
-        //     }
-        // }
+        stage("Build Docker Image") 
+        {
+            steps
+            {
+                dir("${WORK_DIR}")
+                {
+                    sh """
+                        echo 'Building Docker image: ${IMAGE_NAME}'
+                        docker build -t ${IMAGE_NAME} .
+                    """
+                }
+            }
+        }
         
         // stage(" Run Docker Container") 
         // {
