@@ -9,7 +9,7 @@ pipeline
         WORK_DIR = "backend/${APP_NAME}"
         IMAGE_NAME = "registry.local/${APP_NAME}:v${BUILD_ID_TAG}"
         CONTAINER_NAME = "${APP_NAME}_container_${BUILD_ID_TAG}"
-        EXPOSED_PORT = "8080"
+        EXPOSED_PORT = "3001"
         
         // Docker Images
 
@@ -76,35 +76,35 @@ pipeline
                 }
             }
         }
-        
-        // stage(" Run Docker Container") 
-        // {
-        //     steps 
-        //     {
-        //         sh """
-        //             echo 'Cleaning any existing container...'
-        //             docker rm -f ${CONTAINER_NAME} || true
 
-        //             echo ' Running Docker container: ${CONTAINER_NAME}'
-        //             docker run -d --name ${CONTAINER_NAME} \
-        //                 --network jenkins \
-        //                 -p ${EXPOSED_PORT}:${EXPOSED_PORT} \
-        //                 ${IMAGE_NAME}
-        //         """
-        //     }
-        // }
+        stage("Deploy Approval")
+        {
+            steps
+            {
+                script
+                {    
+                    input message: 'Do you approve Staging Setup ?', ok: 'OK'
+                }
+                // ToDo: Send Email Notification 
+            }
+        }
 
-        // stage("Staging Deploy Approval")
-        // {
-        //     steps
-        //     {
-        //         script
-        //         {    
-        //             input message: 'Do you approve Staging Setup ?', ok: 'OK'
-        //         }
-        //         // ToDo: Send Email Notification 
-        //     }
-        // }
+        stage("Deploy using Docker Container") 
+        {
+            steps 
+            {
+                sh """
+                    echo 'Cleaning any existing container...'
+                    docker rm -f ${CONTAINER_NAME} || true
+
+                    echo ' Running Docker container: ${CONTAINER_NAME}'
+                    docker run -d --name ${CONTAINER_NAME} \
+                        --network jenkins \
+                        -p ${EXPOSED_PORT}:${EXPOSED_PORT} \
+                        ${IMAGE_NAME}
+                """
+            }
+        }
     }
 
     post
